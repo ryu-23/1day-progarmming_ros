@@ -1,0 +1,70 @@
+<?xml version="1.0"?>
+  <robot name="my_car">
+    <link name="base_link">
+      <visual>
+        <geometry>
+          <box size="0.14 .14 .1"/>
+        </geometry>
+        <origin rpy="0 0 0" xyz="0 0 0.05"/>
+        <material name="green">
+          <color rgba="1 1 0 1"/>
+        </material>
+      </visual>
+      
+      <collision>
+        <geometry>
+            <box size="0.14 .14 .1"/>
+        </geometry>
+      </collision>
+  
+    </link>
+
+  <link name="wheel_r">
+      <visual>
+        <geometry>
+          <cylinder length="0.03" radius="0.035"/>
+        </geometry>
+        <origin rpy="1.570795 0 0" xyz="0 0.08 0"/>
+          <material name="black">
+            <color rgba="0 0 0 1"/>
+          </material>
+      </visual>
+      
+      <collision>
+        <geometry>
+             <cylinder length="0.03" radius="0.035"/>
+        </geometry>
+      </collision>
+      
+    </link>
+  
+  <joint name="joint_wheel_r" type="continuous">
+    <parent link="base_link"/>
+    <child link="wheel_r"/>
+    <origin xyz="0 0 0" rpy="0 0 0" /> 
+  
+  </joint>  
+  
+  <link name="wheel_l">
+      <visual>
+        <geometry>
+          <cylinder length="0.03" radius="0.035"/>
+        </geometry>
+        <origin rpy="-1.570795 0 0" xyz="0 -0.08 0"/>
+          <material name="black">
+            <color rgba="0 0 0 1"/>
+          </material>
+      </visual>
+    </link>
+  
+  <joint name="joint_wheel_l" type="continuous">
+    <parent link="base_link"/>
+    <child link="wheel_l"/>
+    <origin xyz="0 0 0" rpy="0 0 0" /> 
+  
+  </joint>  
+    
+    
+    
+ </robot>
+
