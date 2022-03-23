@@ -14,7 +14,6 @@ sensor_msgs::Range range;
 std_msgs::Float32 old_sonar_range;
 geometry_msgs::Twist cmd_vel_msg;
 nav_msgs::Odometry pos, delta_pos, past_pos;
-double past_range = 0.0;
 geometry_msgs::Twist V_spd;
 
 
