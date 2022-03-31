@@ -4,11 +4,6 @@
 
 #include <math.h>
 
-#define DATA 4
-
- 
-
-double x[DATA], y[DATA];
 
 double x_avg, y_avg, x_sum, y_sum;
 
@@ -16,9 +11,7 @@ double denominator, numerator, a, b;
 
 int i;
 
- 
-
- 
+  
 
 void calculate(void);
 
