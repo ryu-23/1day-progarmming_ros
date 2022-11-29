@@ -1,5 +1,0 @@
-﻿  2022_11_29.cpp
-C:\Users\rkdud\OneDrive\바탕 화면\Amap_과제파일\Mando_sw_1day_programing_2022_11_29\2022_11_29.cpp(13,11): warning C4244: '=': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\rkdud\OneDrive\바탕 화면\Amap_과제파일\Mando_sw_1day_programing_2022_11_29\2022_11_29.cpp(14,13): warning C4244: '=': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\rkdud\OneDrive\바탕 화면\Amap_과제파일\Mando_sw_1day_programing_2022_11_29\2022_11_29.cpp(15,14): warning C4244: '=': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-  Mando_sw_1day_programing_2022_11_29.vcxproj -> C:\Users\rkdud\OneDrive\바탕 화면\Amap_과제파일\Mando_sw_1day_programing_2022_11_29\x64\Debug\Mando_sw_1day_programing_2022_11_29.exe
