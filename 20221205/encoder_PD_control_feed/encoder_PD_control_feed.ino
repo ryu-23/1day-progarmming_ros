@@ -22,7 +22,7 @@ float P = 0.5;
 float Pd = 1;
 float Pi = 0.4;
 
-double pid_pwm = 0;
+int pid_pwm = 0;
 
 double pos_error_sum = 0.0;
 
@@ -82,7 +82,7 @@ void timer()
   pid_pwm = P*Pos_error + Pd * Pos_error_d + Pi* pos_error_sum;
 
   pid_pwm = (pid_pwm>=255) ? 255: pid_pwm;
-  pid_pwm = (Pos_error >= (double)target_Pos*0.1) ? 255 : pid_pwm;
+  //pid_pwm = (Pos_error >= (double)target_Pos*0.1) ? 255 : pid_pwm;
   
  if(pid_pwm >0)motor_control(-1,pid_pwm);
  else motor_control(1,-pid_pwm);
@@ -90,6 +90,14 @@ void timer()
  
  
 }
+
+int Feedfoward(int pid_pwm)
+{
+  pid_pwm = (Pos_error > (double)target_Pos * 0.1) ? 255 : pid_pwm;
+
+  return pid_pwm;
+}
+
 void motor_control(int direc, int pwm)
 {
   pwm = (pwm>=255) ? 255: pwm;
