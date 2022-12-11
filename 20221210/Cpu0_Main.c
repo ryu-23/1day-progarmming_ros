@@ -43,6 +43,7 @@
 #include "IfxScuWdt.h"
 #include "ERU_Interrupt.h"
 #include "Motor_control_pwm.h"
+#include "ASCLIN_UART.h"
 extern long encoderPos;
 IfxCpu_syncEvent g_cpuSyncEvent = 0;
 int core0_main(void)
@@ -63,9 +64,13 @@ int core0_main(void)
     initPeripheralsAndERU();
     init_PWM_signal_generation();
 
+    init_ASCLIN_UART();                 /* Initialize the module                  */
+    IfxCpu_enableInterrupts();          /* Enable interrupts after initialization */
+
     while(1)
     {
         motor_control();
+        send_ASCLIN_UART_message();
     }
     return (1);
 }
