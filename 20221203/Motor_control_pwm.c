@@ -12,8 +12,8 @@
 #include "IfxCcu6_Icu.h"
 #include "Ifx_Types.h"
 #include <time.h>
-#define L298_IN1  &MODULE_P00,11 //0.9
-#define L298_IN2  &MODULE_P00,12  //0.10
+#define L298_IN1  &MODULE_P00,11
+#define L298_IN2  &MODULE_P00,12
 
 /*********************************************************************************************************************/
 /*------------------------------------------------------Macros-------------------------------------------------------*/
@@ -42,6 +42,10 @@ float32 g_measuredPwmDutyCycle = 0.0;       /* Calculated duty cycle of the meas
 uint32  g_cntOverflowPeriod = 0;            /* Counter of timer overflows between two rising edges                  */
 uint32  g_cntOverflowHighLevel = 0;         /* Counter of timer overflows between a rising and a falling edge       */
 uint32  g_previousCntVal = 0;               /* Global variable to store the timer value of the previous interrupt   */
+
+int pwm = 0;
+int MP = 0;
+
 
 
 
@@ -215,4 +219,50 @@ void init_PWM_signal_generation(void)
 }
 
 /* Generation of a simple PWM signal by toggling a port pin (frequency can be changed during runtime) */
+
+int generate_PWM_signal(int pwm_pid)
+{
+    /* Calculate the total time between two rising edges for the specific frequency */
+    uint32 targetWaitTime_us = IfxStm_getTicksFromMicroseconds(BSP_DEFAULT_TIMER, (1 / g_generatedPwmFreq_Hz) * SEC_TO_USEC);
+
+    g_calculatedPwmDutyCycle = (float)pwm_pid / 255 * 100;
+
+    /* Set the port pin state to high in order to trigger an interrupt */
+    IfxPort_setPinState(PWM_PIN, IfxPort_State_high);
+    /* Wait time while the signal is in high state */
+    wait(g_calculatedPwmDutyCycle * targetWaitTime_us / 100);
+
+    /* Set pin state to low */
+    IfxPort_setPinState(PWM_PIN, IfxPort_State_low);
+    /* Wait time while the signal is in low state */
+    wait((100 - g_calculatedPwmDutyCycle) * targetWaitTime_us / 100);
+
+
+    pwm = g_calculatedPwmDutyCycle / 100 * 255;
+    return pwm;
+}
+
+
+void motor_control(int PWM)
+{
+    MP = generate_PWM_signal(PWM);
+    if(MP<0.0)
+    {
+         IfxPort_setPinHigh(L298_IN1);
+         IfxPort_setPinLow(L298_IN2);
+
+    }
+    else if(MP>0.0)
+    {
+        IfxPort_setPinLow(L298_IN1);
+        IfxPort_setPinHigh(L298_IN2);
+
+    }
+    else
+    {
+        IfxPort_setPinLow(L298_IN1);
+        IfxPort_setPinLow(L298_IN2);
+    }
+}
+
 
