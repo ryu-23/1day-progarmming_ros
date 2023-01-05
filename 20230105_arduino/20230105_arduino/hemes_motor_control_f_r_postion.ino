@@ -244,17 +244,21 @@ void loop() {
   int data;
   String s;
   char Read_char;
-
+  
   if (Serial.available() > 0) 
   {
+    
     delay(4);
     Read_char = Serial.read();
     if (Read_char == 's')  // Speed Control
     {
+    encoder1count = 0;
+    encoder1count_old = 0;
+    target_Pos = 0;
+    clearEncoderCount(1);
+    clearEncoderCount(2);
       direction = Serial.read();
-      encoder1count = 0;
-      encoder1count_old = 0;
-      target_Pos = 0;
+      
       
       for (int i = 0; i < 3; i++) 
       {
@@ -278,11 +282,16 @@ void loop() {
      }
      if (Read_char == 'p') 
     {
+    encoder1count = 0;
+    encoder2count = 0;
+    encoder1count_old = 0;
+    target_Pos = 0;
+    clearEncoderCount(1);
+    clearEncoderCount(2);
       direction = Serial.read();
-      encoder1count = 0;
-      encoder1count_old = 0;
-      target_Pos = 0;
-       
+      
+
+   
       for (int i = 0; i < 4; i++) 
       {
         data_buffer[i] = Serial.read();
@@ -315,9 +324,11 @@ void loop() {
 
   Serial.print("target_Pos = ");
   Serial.print(target_Pos);
-  Serial.print("encoder2count = ");
+  Serial.print(" encodercount = ");
   Serial.print(encoder2count);
-  Serial.print("pos_pid_pwm = ");
+  Serial.print(" pos_error = ");
+  Serial.print(pos_error);
+  Serial.print(" pos_pid_pwm = ");
   Serial.println(pos_pid_pwm);
   
 }
