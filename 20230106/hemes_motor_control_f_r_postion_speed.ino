@@ -69,10 +69,10 @@ int pos_pid_control(void){
 
   front_pos_pid_pwm = dead_zone_front_correction(pos_pid_pwm);
   rear_pos_pid_pwm = dead_zone_rear_correction(pos_pid_pwm);
-  front_pos_pid_pwm = (front_pos_pid_pwm >= 135) ? 135 : front_pos_pid_pwm;
-  front_pos_pid_pwm = (front_pos_pid_pwm <= -135) ? -135 : front_pos_pid_pwm;
-  rear_pos_pid_pwm = (rear_pos_pid_pwm >= 135) ? 135 : rear_pos_pid_pwm;
-  rear_pos_pid_pwm = (rear_pos_pid_pwm <= -135) ? -135 : rear_pos_pid_pwm;
+  front_pos_pid_pwm = (front_pos_pid_pwm >= 255) ? 255 : front_pos_pid_pwm;
+  front_pos_pid_pwm = (front_pos_pid_pwm <= -255) ? -255 : front_pos_pid_pwm;
+  rear_pos_pid_pwm = (rear_pos_pid_pwm >= 255) ? 255 : rear_pos_pid_pwm;
+  rear_pos_pid_pwm = (rear_pos_pid_pwm <= -255) ? -255 : rear_pos_pid_pwm;
   
 
   motor_control(front_pos_pid_pwm,rear_pos_pid_pwm);
@@ -294,8 +294,8 @@ int dead_zone_front_correction(int input_pwm){
   else{
     pwm_out = 0;
   }
-  pwm_out = (pwm_out >= 155) ?  155 : pwm_out;
-  pwm_out = (pwm_out <= -155) ?  -155 : pwm_out;
+  pwm_out = (pwm_out >= 255) ?  255 : pwm_out;
+  pwm_out = (pwm_out <= -255) ?  -255 : pwm_out;
 
   return pwm_out;
 }
@@ -303,11 +303,11 @@ int dead_zone_front_correction(int input_pwm){
 int dead_zone_rear_correction(int input_pwm){
   int pwm_out;
 
-  if(input_pwm > 5)
+  if(input_pwm > 0)
   {
     pwm_out = input_pwm + dead_zone_rear_positive;
   }
-  else if(input_pwm < -5)
+  else if(input_pwm < -0)
   {
     pwm_out = input_pwm - dead_zone_rear_negative;
   }
@@ -315,8 +315,8 @@ int dead_zone_rear_correction(int input_pwm){
   else{
     pwm_out = 0;
   }
-  pwm_out = (pwm_out >= 155) ?  155 : pwm_out;
-  pwm_out = (pwm_out <= -155) ?  -155 : pwm_out;
+  pwm_out = (pwm_out >= 255) ?  255 : pwm_out;
+  pwm_out = (pwm_out <= -255) ?  -255 : pwm_out;
 
   return pwm_out;
 }
@@ -364,38 +364,6 @@ void loop() {
     
     delay(4);
     Read_char = Serial.read();
-    if (Read_char == 's')  // Speed Control
-    {
-    encoder1count = 0;
-    encoder1count_old = 0;
-    target_Pos = 0;
-    clearEncoderCount(1);
-    clearEncoderCount(2);
-    
-      direction = Serial.read();
-      
-      
-      for (int i = 0; i < 3; i++) 
-      {
-        data_buffer[i] = Serial.read();
-      }
-      Serial.write(data_buffer[0]);
-      Serial.write(data_buffer[1]);
-      Serial.write(data_buffer[2]);
-      
-      s = String(data_buffer);
-      data = s.toInt();
-      
-      if(direction =='r') data = -data;
-      
-      Serial.print("  : ");      
-      Serial.println(data);
-      
-      delay(1000);
-      pos_pid_pwm = data;
-      r_speed = pos_pid_pwm;
-     }
-     
      if (Read_char == 'p') 
     {
     encoder1count = 0;
@@ -435,7 +403,7 @@ void loop() {
      }
      
    
-    if (Read_char == 'e') 
+    if (Read_char == 's') 
     {
     encoder1count = 0;
     encoder2count = 0;
