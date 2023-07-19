@@ -1,4 +1,4 @@
-// TF_Rotation.cpp : ÄÜ¼Ö ÀÀ¿ë ÇÁ·Î±×·¥¿¡ ´ëÇÑ ÁøÀÔÁ¡À» Á¤ÀÇÇÕ´Ï´Ù.
+// TF_Rotation.cpp : ì½˜ì†” ì‘ìš© í”„ë¡œê·¸ë¨ì— ëŒ€í•œ ì§„ì…ì ì„ ì •ì˜í•©ë‹ˆë‹¤.
 //
 
 #include "stdafx.h"
@@ -65,7 +65,7 @@ void TF_base_link_base_link_map(Point2D* base_link_Point2D, Point2D* base_link_m
 
 }
 
-void TF_base_link_map_map2(Point2D* base_link_Point2D, Point2D* base_link_map_point2d, Pose2D base_link_origin) { // 2,3,4±â{
+void TF_base_link_map_map2(Point2D* base_link_Point2D, Point2D* base_link_map_point2d, Pose2D base_link_origin) { // 2,3,4ê¸°{
 
 	transformed_x = base_link_map_point2d->x + base_link_origin.x;
 	transformed_y = base_link_map_point2d->y + base_link_origin.y;
