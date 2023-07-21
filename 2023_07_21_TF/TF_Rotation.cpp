@@ -1,4 +1,4 @@
-// TF_Rotation.cpp : ÄÜ¼Ö ÀÀ¿ë ÇÁ·Î±×·¥¿¡ ´ëÇÑ ÁøÀÔÁ¡À» Á¤ÀÇÇÕ´Ï´Ù.
+// TF_Rotation.cpp : ì½˜ì†” ì‘ìš© í”„ë¡œê·¸ë¨ì— ëŒ€í•œ ì§„ì…ì ì„ ì •ì˜í•©ë‹ˆë‹¤.
 //
 
 #include "stdafx.h"
@@ -28,7 +28,7 @@ typedef struct
 
 
 Pose2D    base_link_origin;
-Point2D   base_link_Point2D, base_link_map_Point2D, map_Point2D;
+Point2D   base_link_Point2D, base_link_map_Point2D;
 
 double angle_degree;
 double angle_radian;
@@ -66,7 +66,7 @@ void TF_base_link_base_link_map(Point2D base_link_Point2D, Point2D* base_link_ma
 
 }
 
-void TF_base_link_map_map(Point2D base_link_2D, Point2D* base_link_map_2D, Pose2D base_link_origin) { // 2,3,4±â{
+void TF_base_link_map_map(Point2D base_link_2D, Point2D* base_link_map_2D, Pose2D base_link_origin) { // 2,3,4ê¸°{
 	printf("========================================================================\n");
 	printf("Transformed Point Matrix: %6.3lf  %6.3lf\n", base_link_map_2D->x, base_link_map_2D->y);
 	base_link_map_2D->x = base_link_map_2D->x + base_link_origin.x;
