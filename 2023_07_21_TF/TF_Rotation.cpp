@@ -79,8 +79,8 @@ void TF_base_link_map_map(Point2D base_link_2D, Point2D* base_link_map_2D, Pose2
 
 void TF_base_link_map(Point2D base_link_2D, Point2D* base_link_map_2D, Pose2D base_link_origin) {
 	
-	TF_base_link_base_link_map(base_link_2D, &base_link_map_Point2D, base_link_origin);
-	TF_base_link_map_map(base_link_2D, &base_link_map_Point2D, base_link_origin);
+	TF_base_link_base_link_map(base_link_2D, &base_link_map_2D, base_link_origin);
+	TF_base_link_map_map(base_link_2D, &base_link_map_2D, base_link_origin);
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
